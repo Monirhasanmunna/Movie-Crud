@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model;
+use App\Movie;
 use Illuminate\Http\Request;
 
 class MoviesController extends Controller
@@ -24,7 +25,9 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        //
+        $genres=['Action','Drama','Comedy','Thriller'];
+
+        return view('movies.addmovies',compact('genres'));
     }
 
     /**
@@ -35,7 +38,32 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'genre' => 'required',
+            'release_year' => 'required',
+            'poster' => 'required|iamge|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imageName = '';
+        if($request->poster){
+
+            $imageName= time() . '.' . $request->poster->extention();
+            $request->poster->move(public_path('uploads'),$imageName);
+
+        }
+
+        $data = new Movie;
+
+        $data->title = $request->title;
+        $data->genre = $request->genre;
+        $data->release_year = $request->release_year;
+        $data->poster = $request->$imageName;
+
+        $data->save();
+
+        return redirect()->route('movies.create')->with('status','Movies has been added succesfully');
+
     }
 
     /**
@@ -44,7 +72,7 @@ class MoviesController extends Controller
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function show(Model $model)
+    public function show()
     {
         //
     }
@@ -55,7 +83,7 @@ class MoviesController extends Controller
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function edit(Model $model)
+    public function edit()
     {
         //
     }
@@ -67,7 +95,7 @@ class MoviesController extends Controller
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Model $model)
+    public function update(Request $request)
     {
         //
     }
@@ -78,7 +106,7 @@ class MoviesController extends Controller
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Model $model)
+    public function destroy()
     {
         //
     }
