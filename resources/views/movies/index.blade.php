@@ -1,6 +1,10 @@
 @extends('layouts.movies')
 @section('content')
 
+@section('button')
+<a class="nav-link active btn btn-m btn-secondary my_btn" aria-current="page" href="{{route('addmovie')}}">Add New</a>
+@endsection
+
 <div class="card border p-3">
 <table class="table">
   <thead class="table_head">

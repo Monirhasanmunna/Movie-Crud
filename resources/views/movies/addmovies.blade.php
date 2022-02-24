@@ -1,6 +1,10 @@
 @extends('layouts.movies')
 @section('content')
 
+@section('button')
+<a class="nav-link active btn btn-m btn-secondary my_btn" aria-current="page" href="{{route('movieList')}}">Back</a>
+@endsection
+
 <div class="col-sm-12 col-m-4 col-lg-6 m-auto card border p-2">
     <form action="" method="post" enctype="multipart/form-data">
         @csrf
@@ -11,7 +15,6 @@
 
         <div class="mb-3">
             <label for="genre">Genre</label>
-            
             <select class="form-select" id="genre"  name="genre">
                 <option selected value="Genre">Genre</option>
                 @if($genres)
@@ -35,8 +38,5 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
-
-
 
 @endsection

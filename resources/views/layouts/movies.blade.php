@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ">
         <li class="nav-item">
-          <a class="nav-link active btn btn-m btn-secondary my_btn" aria-current="page" href="{{route('addmovie')}}">Add new</a>
+         @yield('button')
         </li>
       </ul>
     </div>
