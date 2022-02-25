@@ -54,4 +54,18 @@ class MoviesController extends Controller
 
         return redirect()->route('movieList')->with('status','Movies has been added succesfully');
     }
+
+
+    public function show($id)
+    {
+        //movie details show here //
+        $movie = Movie::where('id',$id)->first();
+        return view('movies.show',compact('movie'));
+    }
+
+
+    public function edit()
+    {
+        
+    }
 }

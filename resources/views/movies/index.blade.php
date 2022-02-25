@@ -21,18 +21,26 @@
       <th scope="col">Title</th>
       <th scope="col">Genre</th>
       <th scope="col">Release Year</th>
+      <th scope="col" ></th>
     </tr>
   </thead>
   
   @if($movies)
   <tbody>
   @foreach($movies as $movie)
-    <tr>
-      <th class="align-middle">{{1+$i++}}</th>
-      <td><img style="width:50px;" src="{{asset('uploads/'.$movie->poster)}}" class="img-thumbnail "></td>
-      <td class="align-middle">{{$movie->title}}</td>
-      <td class="align-middle">{{$movie->genre}}</td>
-      <td class="align-middle">{{$movie->release_year}}</td>
+    <tr class="align-middle">
+      <th >{{1+$i++}}</th>
+      <td><img style="width:60px;" src="{{asset('uploads/'.$movie->poster)}}" class="img-thumbnail "></td>
+      <td >{{$movie->title}}</td>
+      <td >{{$movie->genre}}</td>
+      <td >{{$movie->release_year}}</td>
+      <form action="" method="post">
+        @csrf
+        @method('DELETE')
+      <td><a class="btn btn-sm btn-info" href="{{route('show',$movie->id)}}">Show</a></td>
+      <td><a class="btn btn-sm btn-primary" href="{{route('edit',$movie->id)}}">Edit</a></td>
+      <td><button class="btn btn-sm btn-danger" type="submit">Delete</button></td>
+      </form>
     </tr>
     @endforeach
   </tbody>
