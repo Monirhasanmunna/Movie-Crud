@@ -10,17 +10,19 @@ class MoviesController extends Controller
 {
     public function index()
     {
-        return view('movies.index');
+        //data retrive from databese
+        $i=1;
+        $movies = Movie::latest()->paginate(3);
+        return view('movies.index',compact('movies','i'))->with('i',(request()->input('page',1)-1)*4);
     }
 
+    
     public function addmovie()
     {
-
         $genres=['Action','Drama','Comedy','Thriller'];
-
         return view('movies.addmovies',compact('genres'));
-
     }
+
 
     public function store(Request $request)
     {
@@ -50,6 +52,6 @@ class MoviesController extends Controller
         $data->poster =$imageName;
         $data->save();
 
-        return redirect()->route('addmovie')->with('status','Movies has been added succesfully');
+        return redirect()->route('movieList')->with('status','Movies has been added succesfully');
     }
 }
