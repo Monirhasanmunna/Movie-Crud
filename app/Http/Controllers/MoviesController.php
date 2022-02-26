@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Movie;
 
 
+
 class MoviesController extends Controller
 {
     public function index()
@@ -28,7 +29,6 @@ class MoviesController extends Controller
     {
 
         // image validation //
-
         $request->validate([
             'title' => 'required|max:255',
             'genre' => 'required',
@@ -64,8 +64,42 @@ class MoviesController extends Controller
     }
 
 
-    public function edit()
+    public function delete($id)
+    {
+        //Movie post delete here //
+        Movie::where('id',$id)->delete();
+        return redirect()->route('movieList')->with('deletemsg','Movie has been delete successfully');
+    }
+    
+
+    public function edit($id)
+    {
+        $genres=['Action','Drama','Comedy','Thriller'];
+        $post = Movie::find($id);
+        
+        return view('movies.edit',compact('genres','post'));
+
+    }
+
+    public function update(Request $request, $id)
     {
         
+        // data update here //
+
+        $imageName = '';
+        if($request->image){
+        $imageName= time().'.'.$request->file('image')->getClientOriginalExtension();
+        $request->image->move(public_path('uploads'),$imageName);
+        }
+
+        $post = Movie::find($id);
+        $post->title=$request->get('title');
+        $post->genre=$request->get('genre');
+        $post->release_year=$request->get('release_year');
+        $post->poster = $imageName;
+        $post->save();
+
+        return back()->with('update','Movies has been Update succesfully');
     }
+    
 }

@@ -12,6 +12,9 @@
 @if($status = Session::get('status'))
   <div class="alert alert-success text-center">{{$status}}</div>
   @endif
+  @if($deletemsg=Session::get('deletemsg'))
+  <div class="alert alert-primary text-center">{{$deletemsg}}</div>
+  @endif
 <div class="card border p-3">
 <table class="table">
   <thead class="table_head">
@@ -33,14 +36,11 @@
       <td><img style="width:60px;" src="{{asset('uploads/'.$movie->poster)}}" class="img-thumbnail "></td>
       <td >{{$movie->title}}</td>
       <td >{{$movie->genre}}</td>
-      <td >{{$movie->release_year}}</td>
-      <form action="" method="post">
-        @csrf
-        @method('DELETE')
+      <td >{{$movie->release_year}}</td> 
       <td><a class="btn btn-sm btn-info" href="{{route('show',$movie->id)}}">Show</a></td>
       <td><a class="btn btn-sm btn-primary" href="{{route('edit',$movie->id)}}">Edit</a></td>
-      <td><button class="btn btn-sm btn-danger" type="submit">Delete</button></td>
-      </form>
+      <td><a class="btn btn-sm btn-danger" href="{{route('delete',$movie->id)}}">Delete</a></td>
+      
     </tr>
     @endforeach
   </tbody>
