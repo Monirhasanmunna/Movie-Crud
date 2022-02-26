@@ -39,7 +39,7 @@
       <td >{{$movie->release_year}}</td> 
       <td><a class="btn btn-sm btn-info" href="{{route('show',$movie->id)}}">Show</a></td>
       <td><a class="btn btn-sm btn-primary" href="{{route('edit',$movie->id)}}">Edit</a></td>
-      <td><a class="btn btn-sm btn-danger" href="{{route('delete',$movie->id)}}">Delete</a></td>
+      <td><a class="btn btn-sm btn-danger" href="{{route('delete',$movie->id)}}"onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></td>
       
     </tr>
     @endforeach
