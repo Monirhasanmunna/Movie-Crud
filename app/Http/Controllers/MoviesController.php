@@ -33,7 +33,7 @@ class MoviesController extends Controller
             'title' => 'required|max:255',
             'genre' => 'required',
             'release_year' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $imageName = '';
